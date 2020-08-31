@@ -141,9 +141,9 @@ UQ 是在计算和实际应用中定量表征和减少不确定性的科学。
 
 为了解决缺乏仿真结果的问题，将计算机模型替换为高斯过程（GP）模型
 
-![](/Users/mxchip/Documents/科研现状/pic/1.svg)
+![](/Users/mxchip/Documents/GitHub/Uncertainty-quantification/pic/1.svg)
 
-![](/Users/mxchip/Documents/科研现状/pic/2.svg)
+![](/Users/mxchip/Documents/GitHub/Uncertainty-quantification/pic/2.svg)
 
 $$
 d是输入变量的维度，r是未知变量的维度。h是预先定义好的，\beta,\sigma,\omega是d+r维度的参数，需要使用MLE去做估计
@@ -152,9 +152,9 @@ $$
 
 #### 差异函数的高斯过程模型
 
-![](/Users/mxchip/Documents/科研现状/pic/3.svg)
+![](/Users/mxchip/Documents/GitHub/Uncertainty-quantification/pic/3.svg)
 
-![4](/Users/mxchip/Documents/科研现状/pic/4.svg)
+![4](/Users/mxchip/Documents/GitHub/Uncertainty-quantification/pic/4.svg)
 
 
 
