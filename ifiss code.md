@@ -134,24 +134,53 @@ save maps map1 map2 map3 map_10 map_100 map_1000 map_10000
 
 ## pifiss 计算初步结果
 
+- map_10U
+<img src="pic/map_10U.png" style="zoom: 50%;" />
+- map_100U
+<img src="pic/map_100U.png" style="zoom: 50%;" />
+- map_1000U
+<img src="pic/map_1000U.png" style="zoom: 50%;" />
+- map_10000U
+<img src="pic/map_10000U.png" style="zoom: 50%;" />
 
 
 
+## 参数选择:      $a$~map_10
 
+最终从图的连续性和鼓包的形状的趋势
 
+map3和map_10都可以作为数据来训练，相差不大，为了让初始数据更加有相异行，那么我们就选择map_10.
 
+```matlab
+div = 10;h = 1/9*ones(3);
+%h = [0.1 0.1 0.1;0.1 0.2 0.1;0.1 0.1 0.1];
+temperture = rand(div*div,1); 
+map1       = reshape(temperture,[div,div]);
+map2       = imfilter(map1, h);
+map3       = imfilter(map2, h);
+map_10     = 10.^map3-1;
+map_10     = map_10/max(max(map_10));
+temperture = reshape(map_10,[div*div,1]);
+```
 
+### 数据范例
 
+INPUT：
 
+- $a1$:
+<img src="pic/heatmap1.png" style="zoom: 50%;" />
+<img src="pic/surfmap1.png" style="zoom: 50%;" />
 
+- $a2$:
+<img src="pic/heatmap2.png" style="zoom: 50%;" />
+<img src="pic/surfmap2.png" style="zoom: 50%;" />
 
+OUTPUT:
 
-
-
-
-
-
-
+- $U1$:
+<img src="pic/output1.png" style="zoom: 60%;" />
+- $U2$:
+<img src="pic/output2.png" style="zoom: 60%;" />
 
 
 
