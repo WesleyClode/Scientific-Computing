@@ -178,16 +178,56 @@ INPUT：
 OUTPUT:
 
 - $U1$:
-<img src="pic/output1.png" style="zoom: 60%;" />
+  <img src="pic/output1.png" style="zoom: 60%;" />
+
 - $U2$:
-<img src="pic/output2.png" style="zoom: 60%;" />
+  <img src="pic/output2.png" style="zoom: 60%;" />
 
+## square_domain.m
 
+grid defining data is saved to the file: square_grid.mat
+- compute (x,y) coordinates of vertices
+- compute biquadratic element coordinates
+- compute boundary vertices and edges
 
+save square_grid.mat mv xy bound mbound grid_type outbc x y
 
+- mv是干啥的？
 
+## p1grid.m
 
+linear element grid generator
 
+## femp1_adiff 
+
+vectorized linear anisotropic diffusion matrix
+
+## 如何制造成对的训练数据呢？
+
+我觉得可以生成很多的数据$a$然后让matlab一行一行读，去运行，输出U。
+- xtrain.txt
+	shape(1000,100)
+	1000行数据 每行数据是10*10的方格数据，
+```matlab
+data = zeros(1000,100);
+for i = 1:1000
+    div = 10;h = 1/9*ones(3);
+    %h = [0.1 0.1 0.1;0.1 0.2 0.1;0.1 0.1 0.1];
+    temperture = rand(div*div,1); 
+    map1       = reshape(temperture,[div,div]);
+    map2       = imfilter(map1, h);
+    map3       = imfilter(map2, h);
+    map_10     = 10.^map3-1;
+    map_10     = map_10/max(max(map_10));
+    temperture = reshape(map_10,[div*div,1]);
+    surf(map_10)
+    data(i,:)    = roundn(temperture,-2);
+end
+writematrix(data,'xtrain.txt');
+```
+
+- ytrain.txt
+- 
 
 
 
