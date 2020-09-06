@@ -227,7 +227,70 @@ writematrix(data,'xtrain.txt');
 ```
 
 - ytrain.txt
-- 
+
+  自己写计算的函数，在函数内跑我们的数据 一个循环
+
+  
+
+  现在你需要知道函数的结构 然后自己写一个
+
+  square_adiff是主函数，
+  femp1_adiff：
+  - 是其中的一个函数，所以我们应该怎么做呢
+	- 里面调用的是啥？是specific_adiff.m
+	- 
+  
+
+```matlab
+%square_adiff   solve anisotropic problem in unit square domain 
+%    PSFEM scriptfile: DJS; 5 February 2007. 
+% Copyright (c) 2007 C.E. Powell, D.J. Silvester
+gohome, cd datafiles
+save currentsn sn
+clear variables
+load currentsn
+%% define geometry
+pde=1; domain=11;
+square_domain(2,1)
+load square_grid
+%
+%% set up matrices
+qmethod=0;
+[evt,eboundt] = p1grid(xy,mv,bound,mbound); 
+[A,M,f] = femp1_adiff(xy,evt); 
+%这里使用我们的数据a
+%% boundary conditions
+   [Agal,fgal] = nonzerobc(A,f,xy,bound);
+%
+%% save resulting system
+fprintf('system saved in femlab_adiff.mat ...\n')
+gohome
+cd datafiles
+save femlab_adiff qmethod Agal M  fgal  xy x y 
+%
+%% compute solution
+tic
+fprintf('solving linear system ...  ')
+x_gal=Agal\fgal;
+fprintf('done\n')
+etoc=toc; fprintf('Galerkin system solved in  %8.3e seconds\n\n',etoc) 
+save femlab_adiff x_gal  -append 
+%% plot solution
+%if qmethod==2,
+solplot(x_gal,xy,x,y,12);
+%title(['Q',int2str(qmethod),' solution'])
+%drawnow
+%end
+
+%% compute a posteriori error estimate
+%   [jmp,els] = p1fluxjmps_adiff(x_gal,xy,evt,eboundt);
+%   [rhsq,hlsq] = p1res_diff(xy,evt);
+%   [err_res,elerr_res] = tdiffpost_res(jmp,els,rhsq,hlsq);
+%   save femlab_adiff elerr_res evt  -append 
+%   errplot_t(x_gal,elerr_res,evt,xy,x,y,11)
+```
+
+  
 
 
 
